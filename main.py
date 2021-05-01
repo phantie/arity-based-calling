@@ -16,13 +16,10 @@ def group(key):
 
 class ArityGrouped(dict):
     def __init__(self, f):
-        self.add_arity(f)
-
-    def add_arity(self, f):
-        self[f.__code__.co_argcount] = f
+        self(f)
 
     def __call__(self, f):
-        self.add_arity(f)
+        self[f.__code__.co_argcount] = f
         return self
 
 def with_arity(f):
