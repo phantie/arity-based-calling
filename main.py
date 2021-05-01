@@ -15,15 +15,12 @@ def group(key):
     return lambda value: Grouped({key: value})
 
 class ArityGrouped(dict):
-    def __init__(self, f):
-        self(f)
-
     def __call__(self, f):
         self[f.__code__.co_argcount] = f
         return self
 
 def with_arity(f):
-    return ArityGrouped(f)
+    return ArityGrouped()(f)
 
 class Arity(type):
     def __new__(cls, name, bases, attrs):
